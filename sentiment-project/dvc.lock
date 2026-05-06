@@ -1,0 +1,78 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/data/data_ingestion.py
+    deps:
+    - path: src/data/data_ingestion.py
+      hash: md5
+      md5: 1d742512e79ba3ff9c75a40a1aa0261e
+      size: 3569
+    params:
+      params.yaml:
+        data_ingestion.test_size: 0.25
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: fdf473bd30188a94d6b53d8a5c1cd134.dir
+      size: 1423577
+      nfiles: 2
+  data_preprocessing:
+    cmd: python src/data/data_preprocessing.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: fdf473bd30188a94d6b53d8a5c1cd134.dir
+      size: 1423577
+      nfiles: 2
+    - path: src/data/data_preprocessing.py
+      hash: md5
+      md5: c1e18bf95fcc1e3d80cae9ee7c4a6383
+      size: 4014
+    outs:
+    - path: data/interim
+      hash: md5
+      md5: d9f7486a58ed6293f3a0e9dd8976ba9e.dir
+      size: 977573
+      nfiles: 2
+  feature_engineering:
+    cmd: python src/features/feature_engineering.py
+    deps:
+    - path: data/interim
+      hash: md5
+      md5: d9f7486a58ed6293f3a0e9dd8976ba9e.dir
+      size: 977573
+      nfiles: 2
+    - path: src/features/feature_engineering.py
+      hash: md5
+      md5: c1888aef256c204017522c2ce5fd36a0
+      size: 3883
+    params:
+      params.yaml:
+        feature_engineering.max_features: 5000
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: a754b6e8b9bc31775d92adaf949eedf9.dir
+      size: 190224830
+      nfiles: 2
+    - path: models/vectorizer.pkl
+      hash: md5
+      md5: 77bacfdc1f47068606002056d8823f4a
+      size: 139335
+  model_building:
+    cmd: python src/model/model_building.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: a754b6e8b9bc31775d92adaf949eedf9.dir
+      size: 190224830
+      nfiles: 2
+    - path: src/model/model_building.py
+      hash: md5
+      md5: 372bc0e0776c30444351e3e9faf0abbd
+      size: 2360
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: 1057cfce43016a17d024b7ff940edcbc
+      size: 120758

@@ -1,0 +1,11 @@
+I am happy, Happpy 
+I am not feeling good today. I need rest. Feeling a bit tired and lonely, Sad 
+I am ok. Got a fresh start for the day. I think it ill ork out today, Neutral 
+I am good today, Neutral 
+I am pretty happy. Got a new job, Happpy 
+I am a bit orried about my future. Feeling lost nowadays, Sad 
+this prediction is from a new container. I hope this works as planned, Neutral 
+I am happy today., Happpy 
+bhot hui aam indagi, chalo jiye mentos zindagi, Neutral 
+This is a service i started using docker compose and i am happy that it works as planned, Neutral 
+I am happy , Happpy 
