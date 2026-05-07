@@ -7,8 +7,10 @@ import numpy as np
 import pandas as pd
 import re
 import string
+from pathlib import Path
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+
 
 def lemmatization(text):
     """Lemmatize the text."""
@@ -63,14 +65,16 @@ def normalize_text(text):
     return text
 
 
-
 # make the flask app
 app = Flask(__name__)
 
-# Load the model
-model = pickle.load(open('models/model.pkl', 'rb'))
-# Load the vectorizer
-vectorizer = pickle.load(open('models/vectorizer.pkl','rb'))
+ROOT_PATH = Path(__file__).parent
+print(ROOT_PATH)
+model_path = ROOT_PATH/'models'/'model.pkl'
+vectorizer_path = ROOT_PATH/'models'/'vectorizer.pkl'
+
+model = pickle.load(open(model_path, 'rb'))
+vectorizer = pickle.load(open(vectorizer_path, 'rb'))
 
     
 @app.route('/')
