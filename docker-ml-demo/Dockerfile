@@ -9,6 +9,9 @@ COPY ./flask_app/ .
 # Copy models
 COPY ./models/ ./models/
 
+# add default value of env variable
+ENV PORT=5000
+
 # run commands
 RUN pip install --no-cache-dir -r requirements.txt
 RUN python -m nltk.downloader stopwords wordnet
