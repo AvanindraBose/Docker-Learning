@@ -1,8 +1,10 @@
 # updated app.py
-import os
+
 from flask import Flask, render_template,request
 import pickle
+import pandas as pd
 import numpy as np
+import pandas as pd
 import re
 import string
 from nltk.corpus import stopwords
@@ -60,8 +62,7 @@ def normalize_text(text):
 
     return text
 
-# load the port info from env vars
-port = os.environ["PORT"]
+
 
 # make the flask app
 app = Flask(__name__)
@@ -78,23 +79,22 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    input_text = request.form['text']
+    text = request.form['text']
     # clean
-    text = normalize_text(input_text)
+    text = normalize_text(text)
     
     # bow
     features = vectorizer.transform([text])
 
+    # Convert sparse matrix to DataFrame
+    features_df = pd.DataFrame.sparse.from_spmatrix(features)
+    features_df = pd.DataFrame(features.toarray(), columns=[str(i) for i in range(features.shape[1])])
+
     # prediction
-    result = model.predict(features)[0]
-    
-    # open a file in test folder
-    with open("audit/predictions.txt", "a") as file:
-        file.write(f"{input_text}, {'Happpy' if result == 1 else 'Sad' if result == 0 else 'Neutral'} \n")
+    result = model.predict(features_df)
     
     # show
-    return render_template('index.html', result=result)
+    return render_template('index.html', result=result[0])
 
 if __name__ == "__main__":
-    # start the flask server
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=5000)
