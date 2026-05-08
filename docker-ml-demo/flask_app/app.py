@@ -95,6 +95,10 @@ def predict():
 
     # prediction
     result = model.predict(features_df)
+
+    # store the results inside the audit folder
+    with open('./audit/predictions.txt','a') as f:
+        f.write(f"{text} : {'Happy' if result == 1 else 'Sad' if result == 0 else 'Neutral'}\n")
     
     # show
     return render_template('index.html', result=result[0])
