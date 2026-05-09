@@ -1,0 +1,16 @@
+name: my-ml-app
+
+services:
+  sentiment-analysis-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.lite
+    container_name: sentiment-app
+    env_file:
+      - .env
+    ports:
+      - "5000:8000"
+    volumes:
+      - type: bind
+        source: ./audit/
+        target: /app/audit/

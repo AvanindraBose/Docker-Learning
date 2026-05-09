@@ -3,3 +3,4 @@ good boy : Happy
 broken : Neutral
 helllo jiii kaise ho saare : Neutral
 namaste jii : Neutral
+learned docker compose running fine : Neutral
