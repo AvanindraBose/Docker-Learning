@@ -2,12 +2,10 @@ name: my-ml-app
 
 services:
   sentiment-analysis-app:
-    build:
-      context: .
-      dockerfile: Dockerfile.lite
+    image: 660838764267.dkr.ecr.eu-north-1.amazonaws.com/ml/sentiment-analysis-app:latest
     container_name: sentiment-app
-    env_file:
-      - .env
+    environment:
+      - PORT=8000
     ports:
       - "5000:8000"
     volumes:
